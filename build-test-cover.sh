@@ -16,12 +16,20 @@ do
     $i
 done
 
+ls target/debug/coverage/
+
 # combine profraw files
 cargo +nightly profdata -- merge -sparse target/debug/coverage/*.profraw -o target/debug/coverage/combined.profdata
 
+rm $OUTPUT_PATH
+
 # collect coverage
-cargo +nightly cov -- export $executables \
+for i in "${executables[@]}"
+do
+    echo "Running $i"
+    cargo +nightly cov -- export $executables \
     --instr-profile=target/debug/coverage/combined.profdata \
     --ignore-filename-regex="$IGNORE_PATTERN" \
     --skip-functions \
-    | cargo +nightly llvm-codecov-converter > $OUTPUT_PATH
+    | cargo +nightly llvm-codecov-converter >> $OUTPUT_PATH
+done
