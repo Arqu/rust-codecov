@@ -27,7 +27,7 @@ rm $OUTPUT_PATH
 for i in "${executables[@]}"
 do
     echo "Running $i"
-    cargo +nightly cov -- export $executables \
+    cargo +nightly cov -- export $i \
     --instr-profile=target/debug/coverage/combined.profdata \
     --ignore-filename-regex="$IGNORE_PATTERN" \
     --skip-functions \
