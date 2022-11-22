@@ -30,6 +30,12 @@ runs:
     run: cargo +nightly install cargo-binutils cargo-llvm-codecov-converter
     shell: bash
 
+  - name: Install bash utilities
+    run: |
+      sudo apt update
+      sudo apt install jq -y
+    shell: bash
+
   - name: build test and cover
     run: |
       export OUTPUT_PATH="${{ inputs.output-path }}"
