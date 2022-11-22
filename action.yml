@@ -22,7 +22,9 @@ runs:
     shell: bash
 
   - name: Install llvm tools
-    run: rustup component add llvm-tools-preview
+    run: |
+      rustup component add llvm-tools-preview
+      rustup component add llvm-tools
     shell: bash
 
   - name: Install cargo utilities
